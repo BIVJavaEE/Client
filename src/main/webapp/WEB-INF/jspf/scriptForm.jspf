@@ -1,0 +1,39 @@
+<style type="text/css">
+    body > #body > .grid {
+        height: 100%;
+    }
+</style>
+<script>
+    $(document)
+        .ready(function () {
+            $('.ui.form')
+                .form({
+                    fields: {
+                        email: {
+                            identifier: 'username',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Please enter your username'
+                                }
+                            ]
+                        },
+                        password: {
+                            identifier: 'password',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Please enter your password'
+                                },
+                                {
+                                    type: 'length[6]',
+                                    prompt: 'Your password must be at least 6 characters'
+                                }
+                            ]
+                        }
+                    }
+                })
+            ;
+        })
+    ;
+</script>
