@@ -83,26 +83,26 @@ class Predicate extends React.Component {
     }
 }
 
-const $predicatesList = document.getElementById("predicates-list");
-const predicates = [];
-
 class AddPredicate extends React.Component {
 
+    static get $predicates() {
+        return document.getElementById("predicates-list");
+    }
+
+    static nextPredicateId = 0;
+
     static renderPredicate($predicate) {
-        const onDelete = () => {
-            const index = predicates.indexOf($predicate);
-            if (index > -1) {
-                predicates.splice(index, 1);
-            }
-            $predicatesList.removeChild($predicate);
-        };
-        ReactDOM.render(<Predicate id={predicates.length} onDelete={onDelete}/>, $predicate);
-        predicates.push($predicate);
+        AddPredicate.nextPredicateId++;
+        const onDelete = () => AddPredicate.$predicates.removeChild($predicate);
+        ReactDOM.render(
+            <Predicate id={AddPredicate.nextPredicateId} onDelete={onDelete}/>,
+            $predicate
+        );
     }
 
     static add() {
         const $newPredicate = document.createElement("div");
-        $predicatesList.appendChild($newPredicate);
+        AddPredicate.$predicates.appendChild($newPredicate);
         AddPredicate.renderPredicate($newPredicate);
     }
 
@@ -123,4 +123,4 @@ ReactDOM.render(
 );
 
 // Render the existing predicates
-Array.from($predicatesList.children).forEach($p => AddPredicate.renderPredicate($p));
+Array.from(AddPredicate.$predicates.children).forEach($p => AddPredicate.renderPredicate($p));
