@@ -12,10 +12,8 @@
         <!-- Site Properties -->
         <link rel="stylesheet" type="text/css" href="../../css/semantic.min.css">
 
-        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
         <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-react/0.82.5/semantic-ui-react.min.js"></script>
 
         <style type="text/css">
             body {

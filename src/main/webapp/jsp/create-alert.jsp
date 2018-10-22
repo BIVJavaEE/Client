@@ -5,9 +5,9 @@
     <jsp:attribute name="head">
 
         <title>Create an alert</title>
-        <link rel="stylesheet" type="text/css" href="../css/main.css">
-        <link rel="stylesheet" type="text/css" href="../css/create-alert.css">
-        <script type="text/babel" src="../js/predicate.jsx"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="jsp/react-create-alert/dist/main.css">
+
     </jsp:attribute>
     <jsp:attribute name="header">
       <%@ include file="../WEB-INF/jspf/header.jspf"%>
@@ -17,8 +17,8 @@
     </jsp:attribute>
     <jsp:body>
         <div class="ui main container">
-
-            <h1 id="title"> Create an alert </h1>
+            <div id="create-alert-content"></div>
+          <%--  <h1 id="title"> Create an alert </h1>
 
             <form class="ui form" method="post">
                 <div class="field">
@@ -60,10 +60,12 @@
                     Save
                 </button>
 
-            </form>
+            </form>--%>
 
 
 
         </div>
+
+        <script type="text/javascript" src="jsp/react-create-alert/dist/bundle.js"></script>
     </jsp:body>
 </t:genericpage>
