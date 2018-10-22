@@ -5,24 +5,7 @@
     <jsp:attribute name="head">
 
         <title>Sensors</title>
-      <style type="text/css">
-          .ui.menu .item img.logo {
-              margin-right: 1.5em;
-          }
-
-          .main.container {
-              margin-top: 7em;
-          }
-
-          .wireframe {
-              margin-top: 2em;
-          }
-
-          .ui.footer.segment {
-              margin: 5em 0em 0em;
-              padding: 5em 0em;
-          }
-      </style>
+     <link rel="stylesheet" type="text/css" href="../css/main.css">
     </jsp:attribute>
     <jsp:attribute name="header">
       <%@ include file="../WEB-INF/jspf/header.jspf"%>
