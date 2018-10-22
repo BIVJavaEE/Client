@@ -13,6 +13,9 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<excludes>
+						<exclude>src/main/webapp/jsp/react-create-alert/node_modules/**</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 		</plugins>
