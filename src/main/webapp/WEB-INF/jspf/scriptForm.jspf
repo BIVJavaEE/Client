@@ -2,6 +2,10 @@
     body > #body > .grid {
         height: 100%;
     }
+
+    .column {
+        max-width: 350px;
+    }
 </style>
 <script>
     $(document)

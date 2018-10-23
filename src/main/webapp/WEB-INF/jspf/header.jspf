@@ -8,11 +8,14 @@
 
         </a>
         <c:set var="currentPage" value="${fn:substring(pageContext.request.servletPath, 1, -1)}" />
-        <c:set var="menus" value='<%=new String[]{"sensors", "alerts"} %>' />
 
-        <c:forEach items="${menus}" var="item">
-            <c:set var="path" value="jsp/${item}.jsp" />
-            <a href="${pageContext.request.contextPath}/${item}" class="${currentPage == path ? 'active' : ''} item">${item}</a>
+        <c:forEach items="${pageContext.servletContext.getAttribute('menus')}" var="item">
+            <c:set var="itemLowerCase" value="${item.toLowerCase()}" />
+            <c:set var="path" value="jsp/${itemLowerCase}.jsp" />
+            <a href="${pageContext.request.contextPath}/${itemLowerCase}"
+               class="${currentPage == path ? 'active' : ''} item">
+                    ${item}
+            </a>
         </c:forEach>
 
         <%--<div class="ui simple dropdown item">--%>

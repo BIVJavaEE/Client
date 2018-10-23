@@ -5,7 +5,7 @@
 <%@attribute name="bottominfo" fragment="true" %>
 
 <div class="ui middle aligned center aligned grid">
-    <div class="four wide column">
+    <div class="column">
         <h2 class="ui blue image header">
             <div class="content">
                 <jsp:invoke fragment="title"/>

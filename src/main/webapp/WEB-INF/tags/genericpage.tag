@@ -21,6 +21,14 @@
             body {
                 background-color: #f9f9f9;
             }
+            .ui.menu.fixed {
+                z-index: 1001;
+            }
+
+            .main.container {
+                padding-top: 7em;
+                /*margin-bottom: -7em;*/
+            }
         </style>
 
         <jsp:invoke fragment="head"/>
@@ -30,7 +38,9 @@
             <jsp:invoke fragment="header"/>
         </div>
         <div id="body">
-            <jsp:doBody/>
+            <div class="main ui container">
+                <jsp:doBody/>
+            </div>
         </div>
         <div id="pagefooter">
             <jsp:invoke fragment="footer"/>
