@@ -65,12 +65,12 @@ export class PredicateComponent extends React.Component<PredicateProps, Predicat
 
                 <Form.Field>
                     <label>Begin time</label>
-                    <TimeInput initTime={this.props.initialPredicate.beginTime}/>
+                    <TimeInput name={this.getName("beginTime")} initTime={this.props.initialPredicate.beginTime}/>
                 </Form.Field>
 
                 <Form.Field>
                     <label>End time</label>
-                    <TimeInput initTime={this.props.initialPredicate.endTime}/>
+                    <TimeInput name={this.getName("endTime")} initTime={this.props.initialPredicate.endTime}/>
                 </Form.Field>
 
                 <Form.Field>

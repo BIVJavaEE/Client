@@ -20,7 +20,7 @@
     <jsp:body>
 
         <h1 id="title"> Create an alert </h1>
-        <form class="ui form" method="post">
+        <form class="ui form" method="get">
 
             <h2>General information</h2>
             <div class="field">

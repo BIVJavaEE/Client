@@ -13,6 +13,8 @@
         <link rel="stylesheet" type="text/css" href="../../css/semantic.min.css">
 
         <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script src="../../js/jquery-3.3.1.slim.min.js"></script>
+        <script src="../../js/semantic.min.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
         <style type="text/css">
