@@ -4,7 +4,7 @@ var path = require("path");
 module.exports = {
 
     entry: {
-        "create-alert": "./src/create-alert/index.tsx"
+        "predicates-list": "./src/predicates-list/index.tsx"
     },
 
     output: {

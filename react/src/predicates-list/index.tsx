@@ -1,13 +1,13 @@
-import '../../css/create-alert.scss';
+import './predicates-list.scss';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import {Main} from "./main.component";
 import {Type, TypeValue} from "./models/type";
 import {Comparator, ComparatorValue} from "./models/comparator";
 import {Predicate} from "./models/predicate";
+import {PredicatesListComponent} from "./predicates-list.component";
 
-const comparatorsValues: Array<ComparatorValue> = [
+const comparatorValues: Array<ComparatorValue> = [
     {
         id: Comparator.Equal,
         text: "="
@@ -52,10 +52,8 @@ const initialPredicates: Array<Predicate> = [
     new Predicate(0, Type.Temperature, Comparator.Superior)
 ];
 
-const main = <Main
-        typeValues={typeValues}
-        comparatorValues={comparatorsValues}
-        initialPredicates={initialPredicates}/>;
+const main = <PredicatesListComponent typeValues={typeValues} comparatorValues={comparatorValues}
+               initialPredicates={initialPredicates}/>;
 
-const elementById = document.getElementById("create-alert-content");
+const elementById = document.getElementById("predicates-list");
 ReactDOM.render(main, elementById);
