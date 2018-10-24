@@ -36,16 +36,18 @@ export class PredicateComponent extends React.Component<PredicateProps, Predicat
             predicate: this.props.initialPredicate,
             unit: this.getUnit(this.props.initialPredicate.type)
         };
+        this.onTypeChange = this.onTypeChange.bind(this);
+        this.onDeleteButtonClicked = this.onDeleteButtonClicked.bind(this);
     }
 
-    public render() {
+    public render(): JSX.Element {
         return (
             <Form.Group wide className="predicates-container">
 
                 <Form.Field>
                     <label>Type</label>
                     <Select options={generateSelectOptions(this.props.typeValues)} name={this.getName("type")}
-                            defaultValue={this.props.initialPredicate.type} onChange={this.onTypeChange.bind(this)}/>
+                            defaultValue={this.props.initialPredicate.type} onChange={this.onTypeChange}/>
                 </Form.Field>
 
                 <Form.Field>
@@ -73,7 +75,7 @@ export class PredicateComponent extends React.Component<PredicateProps, Predicat
 
                 <Form.Field>
                     <label>&nbsp;</label>
-                    <Button color="red" type="button" onClick={this.onDeleteButtonClicked.bind(this)}>
+                    <Button color="red" type="button" onClick={this.onDeleteButtonClicked}>
                         Delete
                     </Button>
                 </Form.Field>
@@ -86,7 +88,6 @@ export class PredicateComponent extends React.Component<PredicateProps, Predicat
             this.props.onDelete(this.state.predicate);
         }
     }
-
 
     private onTypeChange(event: React.FormEvent<HTMLSelectElement>, {value}): void {
         this.setState({

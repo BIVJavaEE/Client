@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Form, Input, Radio} from "semantic-ui-react";
+import {Button, Form, Input, Radio} from "semantic-ui-react";
 import {Type, TypeValue} from "./models/type";
 import {ComparatorValue} from "./models/comparator";
 import {Predicate} from "./models/predicate";
@@ -45,6 +45,10 @@ export class Main extends React.Component<MainProps, MainState> {
                     initialPredicates={this.props.initialPredicates}/>
 
                     <h2>Sensors</h2>
+
+                    <Button primary>
+                        Save
+                    </Button>
 
                 </Form>
             </div>
