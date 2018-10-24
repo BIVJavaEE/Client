@@ -12,14 +12,30 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @WebServlet("/join")
 public class Join extends HttpServlet {
 
-    @Override
+    private enum JoinError {
+        None,
+        UserAlreadyExists
+    }
+
+    private static Map<JoinError, String> joinErrorMessages = new HashMap<>();
+    static {
+        joinErrorMessages.put(JoinError.None, "");
+        joinErrorMessages.put(JoinError.UserAlreadyExists, "This user already exists");
+    }
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("joinErrorMessage", JoinError.None);
+
         Optional<String> username = Optional.ofNullable(req.getParameter("username"));
         Optional<String> password = Optional.ofNullable(req.getParameter("username"));
 
@@ -54,11 +70,12 @@ public class Join extends HttpServlet {
         em.persist(newUser);
         em.getTransaction().commit();
 
-        super.doPost(req, resp);
+        UtilsJsp.forwardToJsp("/jsp/login.jsp", req, resp);
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
         UtilsJsp.forwardToJsp("/jsp/join.jsp", req, resp);
     }
 

@@ -7,7 +7,6 @@
         <title>Create an alert</title>
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/create-alert.css">
-        <link rel="stylesheet" type="text/css" href="bundles/predicates-list.css">
     </jsp:attribute>
 
     <jsp:attribute name="header">
@@ -50,7 +49,6 @@
             </div>
 
             <h2>Predicates</h2>
-            <div id="predicates-list"></div>
 
             <h2>Sensors</h2>
 
@@ -59,7 +57,6 @@
             </button>
 
         </form>
-        <script type="text/javascript" src="bundles/predicates-list.js"></script>
     </jsp:body>
 
 </t:genericpage>

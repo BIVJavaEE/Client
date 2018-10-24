@@ -10,8 +10,8 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ApplicationData implements ServletContextListener {
 
-    private static final String[] MENUS = {"Dashboard", "Sensors", "Alerts"};
     private static EntityManagerFactory emf;
+    private static final String[] MENUS = {"Dashboard", "Sensors", "Alerts"};
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -31,5 +31,6 @@ public class ApplicationData implements ServletContextListener {
 
         return emf.createEntityManager();
     }
+
 
 }
