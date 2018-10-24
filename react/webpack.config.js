@@ -1,10 +1,15 @@
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var path = require("path");
 
 module.exports = {
-    entry: "./src/index.tsx",
+
+    entry: {
+        "create-alert": "./src/create-alert/index.tsx"
+    },
+
     output: {
-        filename: "bundle.js",
-        path: __dirname + "/dist"
+        filename: "[name].js",
+        path: path.join(__dirname, '../src/main/webapp/bundles/')
     },
 
     devtool: "source-map",
@@ -44,8 +49,6 @@ module.exports = {
 
     plugins: [
         new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: "[name].css",
             chunkFilename: "[id].css"
         })

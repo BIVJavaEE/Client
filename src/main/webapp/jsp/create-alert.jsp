@@ -6,7 +6,7 @@
 
         <title>Create an alert</title>
         <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="jsp/react-create-alert/dist/main.css">
+        <link rel="stylesheet" type="text/css" href="bundles/create-alert.css">
 
     </jsp:attribute>
     <jsp:attribute name="header">
@@ -18,54 +18,7 @@
     <jsp:body>
         <div class="ui main container">
             <div id="create-alert-content"></div>
-          <%--  <h1 id="title"> Create an alert </h1>
-
-            <form class="ui form" method="post">
-                <div class="field">
-                    <label>Name</label>
-                    <input type="text" name="name">
-                </div>
-
-                <div class="grouped fields">
-                    <label>Priority</label>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="priority" value="high" checked="checked">
-                            <label>High</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="priority" value="medium">
-                            <label>Medium</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="priority" value="low">
-                            <label>Low</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grouped field" id="predicates-list-field">
-                    <label>Predicates</label>
-                    <div id="predicates-list">
-                        <div></div>
-                    </div>
-                    <div id="add-predicate"></div>
-                </div>
-
-                <button class="ui primary button">
-                    Save
-                </button>
-
-            </form>--%>
-
-
-
         </div>
-
-        <script type="text/javascript" src="jsp/react-create-alert/dist/bundle.js"></script>
+        <script type="text/javascript" src="bundles/create-alert.js"></script>
     </jsp:body>
 </t:genericpage>
