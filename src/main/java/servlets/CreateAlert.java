@@ -1,7 +1,9 @@
 package servlets;
 
+import listeners.ApplicationData;
 import utils.UtilsJsp;
 
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

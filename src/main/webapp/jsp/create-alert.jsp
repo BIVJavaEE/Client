@@ -2,68 +2,64 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:genericpage>
-    <jsp:attribute name="head">
 
+    <jsp:attribute name="head">
         <title>Create an alert</title>
-        <link rel="stylesheet" type="text/css" href="../css/main.css">
-        <link rel="stylesheet" type="text/css" href="../css/create-alert.css">
-        <script type="text/babel" src="../js/predicate.jsx"></script>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/create-alert.css">
+        <link rel="stylesheet" type="text/css" href="bundles/predicates-list.css">
     </jsp:attribute>
+
     <jsp:attribute name="header">
       <%@ include file="../WEB-INF/jspf/header.jspf"%>
     </jsp:attribute>
+
     <jsp:attribute name="footer">
-      <%--<p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>--%>
     </jsp:attribute>
+
     <jsp:body>
-        <div class="ui main container">
 
-            <h1 id="title"> Create an alert </h1>
+        <h1 id="title"> Create an alert </h1>
+        <form class="ui form" method="get">
 
-            <form class="ui form" method="post">
+            <h2>General information</h2>
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="name">
+            </div>
+            <div class="grouped fields">
+                <label>Priority</label>
                 <div class="field">
-                    <label>Name</label>
-                    <input type="text" name="name">
-                </div>
-
-                <div class="grouped fields">
-                    <label>Priority</label>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="priority" value="high" checked="checked">
-                            <label>High</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="priority" value="medium">
-                            <label>Medium</label>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui radio checkbox">
-                            <input type="radio" name="priority" value="low">
-                            <label>Low</label>
-                        </div>
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="priority" value="high" checked="checked">
+                        <label>High</label>
                     </div>
                 </div>
-
-                <div class="grouped field" id="predicates-list-field">
-                    <label>Predicates</label>
-                    <div id="predicates-list">
-                        <div></div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="priority" value="medium">
+                        <label>Medium</label>
                     </div>
-                    <div id="add-predicate"></div>
                 </div>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="priority" value="low">
+                        <label>Low</label>
+                    </div>
+                </div>
+            </div>
 
-                <button class="ui primary button">
-                    Save
-                </button>
+            <h2>Predicates</h2>
+            <div id="predicates-list"></div>
 
-            </form>
+            <h2>Sensors</h2>
 
+            <button class="ui primary button">
+                Save
+            </button>
 
-
-        </div>
+        </form>
+        <script type="text/javascript" src="bundles/predicates-list.js"></script>
     </jsp:body>
+
 </t:genericpage>

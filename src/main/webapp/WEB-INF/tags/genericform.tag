@@ -3,6 +3,7 @@
 <%@attribute name="action" fragment="true" %>
 <%@attribute name="buttontext" fragment="true" %>
 <%@attribute name="bottominfo" fragment="true" %>
+<%@attribute name="method" fragment="true" %>
 
 <div class="ui middle aligned center aligned grid">
     <div class="column">
@@ -11,7 +12,7 @@
                 <jsp:invoke fragment="title"/>
             </div>
         </h2>
-        <form class="ui small form segment left aligned" action="<jsp:invoke fragment="action"/>">
+        <form class="ui small form segment left aligned" action="<jsp:invoke fragment="action"/>" method="post">
             <div class="field">
                 <label>Username</label>
                 <input type="text" name="username">
