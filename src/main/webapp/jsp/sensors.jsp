@@ -14,11 +14,20 @@
                  crossorigin=""></script>
 
         <style>
-            #mapid { height: 400px; }
+            #mapid {
+                min-height: 90%;
+            }
+
+            .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
+                position: unset;
+            }
+
+            .tooltip {
+            }
         </style>
         <script>
             $(document).ready(function() {
-                var mymap = L.map('mapid').setView([47.217222,-1.553169], 13);
+                var mymap = L.map('mapid').setView([47.217222,-1.553169], 12);
                 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 18,
@@ -29,11 +38,11 @@
                 var LeafIcon = L.Icon.extend({
                     options: {
                         // shadowUrl: 'leaf-shadow.png',
-                        iconSize:     [64, 64],
+                        iconSize:     [48, 48],
                         shadowSize:   [50, 64],
-                        iconAnchor:   [42, 63],
+                        iconAnchor:   [32, 46],
                         shadowAnchor: [4, 62],
-                        popupAnchor:  [-3, -76]
+                        popupAnchor:  [-3, -50]
                     }
                 });
 
@@ -42,16 +51,38 @@
                     windspeed = new LeafIcon({iconUrl: 'img/windspeed.png'}),
                     winddirection = new LeafIcon({iconUrl: 'img/winddirection.png'});
 
-                var truc = '${sensors}';
-                var sensors = JSON.parse(truc);
+                var sensors = JSON.parse('${sensors}');
 
-                console.log(sensors);
                 for (var i = 0; i < sensors.length; i++) {
                     var marker = L.marker([sensors[i].latitude, sensors[i].longitude], {icon: eval(sensors[i].type)}).addTo(mymap);
-                    marker.bindPopup("<b>Hello world!</b><br>I am a popup.<a href='sensors.jsp'>Salut</a>");
+                    marker.bindPopup("<div class=\"ui active centered inline small loader\"></div>");
+
+                    (function (sensorId) {
+                        var interval = null;
+                        marker.on('click', function(e) {
+                            var popup = e.target.getPopup();
+                            var url = "/lastMeasure?sensorId=" + sensorId;
+                            getLastMeasure(popup, url);
+                            interval = setInterval(function() {
+                                getLastMeasure(popup, url);
+                            }, 10000);
+                        });
+                        marker.on("popupclose",function() {
+                            console.log("popup closed");
+                            clearInterval(interval);
+                        })
+                    })(sensors[i].id);
                 }
 
             } );
+
+            function getLastMeasure(popup,url) {
+                $.get(url).done(function (data) {
+                    popup.setContent(data);
+                    popup.update();
+                });
+            }
+
         </script>
     </jsp:attribute>
     <jsp:attribute name="header">

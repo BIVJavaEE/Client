@@ -1,5 +1,6 @@
 package servlets;
 
+import entity.User;
 import listeners.ApplicationData;
 import org.apache.commons.codec.digest.DigestUtils;
 import utils.UtilsJsp;

@@ -6,12 +6,23 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebListener
 public class ApplicationData implements ServletContextListener {
 
     private static EntityManagerFactory emf;
     private static final String[] MENUS = {"Dashboard", "Sensors", "Alerts"};
+    public static final Map<String, String> units;
+    static
+    {
+        units = new HashMap<String, String>();
+        units.put("temperature", "°C");
+        units.put("pressure", "Pa");
+        units.put("windspeed", "m/s");
+        units.put("winddirection", "°");
+    }
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -31,6 +42,4 @@ public class ApplicationData implements ServletContextListener {
 
         return emf.createEntityManager();
     }
-
-
 }

@@ -24,16 +24,17 @@ public class Sensors extends HttpServlet {
         EntityManager em = ApplicationData.createEntityManager();
         try {
             List<Sensor> sensors = em.createQuery("SELECT s FROM Sensor s").getResultList();
-
-            System.out.println("Number of sensors: " + sensors.size());
-            for (Sensor sensor: sensors) {
-                System.out.println(sensor.getType());
-            }
-
             String sensorsJson = new Gson().toJson(sensors);
-
             req.setAttribute("sensors",sensorsJson);
         } catch(NoResultException e) {
+            UtilsJsp.forwardToErrorPage(
+                    req,
+                    resp,
+                    "Sensors",
+                    "",
+                    "There were an error with your request",
+                    "No sensor was found");
+            return;
         }
 
         UtilsJsp.forwardToJsp("/jsp/sensors.jsp", req, resp);
