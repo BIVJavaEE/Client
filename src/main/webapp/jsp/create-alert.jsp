@@ -4,7 +4,7 @@
 <t:genericpage>
 
     <jsp:attribute name="head">
-        <title>Create an alert</title>
+        <title>${title}</title>
         <link rel="stylesheet" type="text/css" href="css/main.css">
         <link rel="stylesheet" type="text/css" href="css/create-alert.css">
     </jsp:attribute>
@@ -13,6 +13,7 @@
         <%@ include file="../WEB-INF/jspf/header.jspf"%>
         <script>
             var initialPriority = "${priority}";
+            var sensorId = ${sensorId};
         </script>
         <script src="../js/create-alert.js" text="text/babel"></script>
     </jsp:attribute>
@@ -22,7 +23,7 @@
 
     <jsp:body>
 
-        <h1 id="title"> Create an alert </h1>
+        <h1 id="title">${title}</h1>
         <form class="ui form" method="post">
 
             <div class="field">

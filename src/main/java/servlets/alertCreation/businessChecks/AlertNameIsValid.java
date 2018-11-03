@@ -7,21 +7,26 @@ import servlets.alertCreation.AlertCreationContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-public class AlertWithSameNameDoesntExist extends BusinessCheck<AlertCreationContext> {
+public class AlertNameIsValid extends BusinessCheck<AlertCreationContext> {
 
     private EntityManager _em;
 
-    public AlertWithSameNameDoesntExist(EntityManager em) {
+    public AlertNameIsValid(EntityManager em) {
         _em = em;
     }
 
     @Override
     public void run(AlertCreationContext context) throws BusinessException {
+        String name = context.getAlert().getName();
+        if (name.isEmpty()) {
+            throw new BusinessException("Empty name");
+        }
+
         boolean exists = true;
         try {
             _em
                 .createQuery("FROM Alert a WHERE a.name = :name")
-                .setParameter("name", context.getAlert().getName())
+                .setParameter("name", name)
                 .getSingleResult();
         } catch (NoResultException ignored) {
             exists = false;

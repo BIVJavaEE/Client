@@ -6,9 +6,8 @@ import business.BusinessException;
 import entity.Alert;
 import entity.Sensor;
 import listeners.ApplicationData;
-import map.RequestMapperException;
 import servlets.alertCreation.businessChecks.AlertIsValid;
-import servlets.alertCreation.businessChecks.AlertWithSameNameDoesntExist;
+import servlets.alertCreation.businessChecks.AlertNameIsValid;
 import servlets.alertCreation.businessChecks.SensorExists;
 import utils.UtilsJsp;
 
@@ -25,7 +24,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @WebServlet({"/create-alert", "/edit-alert/*"})
@@ -38,7 +36,7 @@ public class CreateAlert extends HttpServlet {
         AlertCreationContext context = AlertCreationContext.createFromRequest(req);
         BusinessCheck<AlertCreationContext> businessChecks = new BusinessCheckOrchestrator<>(
                 new AlertIsValid(),
-                new AlertWithSameNameDoesntExist(em),
+                new AlertNameIsValid(em),
                 new SensorExists(em)
         );
 
@@ -53,7 +51,17 @@ public class CreateAlert extends HttpServlet {
         newAlert.setCreationDate(new Timestamp(System.currentTimeMillis()));
 
         em.getTransaction().begin();
-        em.persist(newAlert);
+        if (isEdition(req)) {
+            Optional<Long> alertId = getAlertId(req);
+            if (!alertId.isPresent()) {
+                UtilsJsp.forwardToJsp("/jsp/alerts.jsp", req, resp);
+                return;
+            }
+            newAlert.setId(alertId.get());
+            em.merge(newAlert);
+        } else {
+            em.persist(newAlert);
+        }
         em.flush();
         em.getTransaction().commit();
 
@@ -70,14 +78,17 @@ public class CreateAlert extends HttpServlet {
         req.setAttribute("sensorsList", sensors);
 
         Date today = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String name = "";
         String priority = "high";
         String beginDate = dateFormat.format(today);
-        String endDate = beginDate;
+        String endDate = dateFormat.format(tomorrow);
         Long threshold = 0L;
+        Long sensorId = -1L;
 
-        if (isEdition(req)) {
+        boolean isEdition = isEdition(req);
+        if (isEdition) {
             try {
                 Alert alert = em
                         .createQuery("SELECT a FROM Alert a where id = :id", Alert.class)
@@ -88,6 +99,7 @@ public class CreateAlert extends HttpServlet {
                 beginDate = dateFormat.format(alert.getBeginDate().getTime());
                 endDate = dateFormat.format(alert.getEndDate().getTime());
                 threshold = alert.getTreshold();
+                sensorId = alert.getSensor().getId();
             } catch (NoResultException ignored) {
                 resp.setStatus(404);
                 UtilsJsp.forwardToJsp("/jsp/404.jsp", req, resp);
@@ -96,10 +108,16 @@ public class CreateAlert extends HttpServlet {
         }
 
         req.setAttribute("name", name);
-        req.setAttribute("priority", "low");
+        req.setAttribute("priority", priority);
         req.setAttribute("beginDate", beginDate);
         req.setAttribute("endDate", endDate);
         req.setAttribute("threshold", threshold);
+        req.setAttribute("sensorId", sensorId);
+
+        String title = isEdition
+                ? "Edit the alert " + name
+                : "Create an alert";
+        req.setAttribute("title", title);
 
         UtilsJsp.forwardToJsp("/jsp/create-alert.jsp", req, resp);
     }

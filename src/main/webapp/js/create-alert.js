@@ -1,5 +1,5 @@
 const onDocumentReady = () => {
-    $('.ui.dropdown').dropdown();
+    $('.ui.dropdown').dropdown('set selected', sensorId);
     if (initialPriority != null) {
         const $checkbox = $('#priority-' + initialPriority);
         $checkbox.prop('checked', true);

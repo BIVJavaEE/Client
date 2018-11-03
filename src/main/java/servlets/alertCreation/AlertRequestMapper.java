@@ -23,7 +23,8 @@ public class AlertRequestMapper extends RequestMapper<Alert> {
     public Alert map() throws RequestMapperException {
         Alert alert = new Alert();
 
-        alert.setName(getStringParameter("name").orElseThrow(() -> new RequestMapperException("Missing name")));
+        String name = getStringParameter("name").orElseThrow(() -> new RequestMapperException("Missing name"));
+        alert.setName(name.trim());
 
         Long id = CreateAlert.isEdition(_req)
                 ? CreateAlert.getAlertId(_req).orElseThrow(() -> new RequestMapperException("Missing id"))
