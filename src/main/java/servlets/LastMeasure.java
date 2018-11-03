@@ -38,7 +38,7 @@ public class LastMeasure extends HttpServlet {
             Measure lastMeasure = measures.get(0);
 
             req.setAttribute("lastMeasure",lastMeasure);
-            req.setAttribute("unit", ApplicationData.units.get(lastMeasure.getSensor().getType()));
+            req.setAttribute("unit", ApplicationData.UNITS.get(lastMeasure.getSensor().getType()));
         } catch(Exception e) {
             req.setAttribute("error",true);
         }

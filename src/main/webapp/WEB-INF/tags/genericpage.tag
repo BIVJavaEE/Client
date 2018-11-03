@@ -12,13 +12,12 @@
         <!-- Site Properties -->
         <link rel="stylesheet" type="text/css" href="../../css/semantic.min.css">
 
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
         <script
                 src="https://code.jquery.com/jquery-3.3.1.min.js"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                 crossorigin="anonymous"></script>
         <script src="../../js/semantic.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
 
         <style type="text/css">
             body {
