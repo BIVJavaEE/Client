@@ -7,7 +7,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @WebListener
 public class ApplicationData implements ServletContextListener {
@@ -23,6 +25,15 @@ public class ApplicationData implements ServletContextListener {
         UNITS.put("pressure", "Pa");
         UNITS.put("windspeed", "m/s");
         UNITS.put("winddirection", "°");
+    }
+
+    public static final Set<String> PRIORITIES;
+    static
+    {
+        PRIORITIES = new HashSet<>();
+        PRIORITIES.add("high");
+        PRIORITIES.add("medium");
+        PRIORITIES.add("low");
     }
 
     @Override

@@ -10,7 +10,8 @@
     </jsp:attribute>
 
     <jsp:attribute name="header">
-      <%@ include file="../WEB-INF/jspf/header.jspf"%>
+        <%@ include file="../WEB-INF/jspf/header.jspf"%>
+        <script src="../js/create-alert.js" text="text/babel"></script>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -19,13 +20,14 @@
     <jsp:body>
 
         <h1 id="title"> Create an alert </h1>
-        <form class="ui form" method="get">
+        <form class="ui form" method="post">
 
-            <h2>General information</h2>
+
             <div class="field">
                 <label>Name</label>
                 <input type="text" name="name">
             </div>
+
             <div class="grouped fields">
                 <label>Priority</label>
                 <div class="field">
@@ -48,9 +50,50 @@
                 </div>
             </div>
 
-            <h2>Predicates</h2>
+            <div class="field">
+                <label>Threshold</label>
+                <input type="number" name="threshold">
+            </div>
 
-            <h2>Sensors</h2>
+            <div class="field">
+                <label>Begin time</label>
+                <div class="ui calendar" id="begin-time">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="date" name="begin-time">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>End time</label>
+                <div class="ui calendar" id="end-time">
+                    <div class="ui input left icon">
+                        <i class="calendar icon"></i>
+                        <input type="date" name="end-time">
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Sensor</label>
+                <div class="ui selection dropdown">
+                    <input type="hidden" name="sensor">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Sensor</div>
+                    <div class="menu">
+                        <c:forEach var="entry" items="${sensorsList}">
+                            <div class="item" data-value="<c:out value='${entry.getId()}'/>">
+                                <c:out value='${entry.getName()}'/>
+                            </div>
+                        </c:forEach>
+                      <div class="item">Test</div>
+                      <div class="item">Test2</div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <button class="ui primary button">
                 Save

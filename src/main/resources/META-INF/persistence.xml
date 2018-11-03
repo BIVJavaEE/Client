@@ -5,6 +5,8 @@
 		<class>entity.Measure</class>
 		<class>entity.Sensor</class>
 		<class>entity.User</class>
+		<class>entity.Alert</class>
+		<class>entity.AlertTriggered</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://ouaz.me:3306/JEE"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>
