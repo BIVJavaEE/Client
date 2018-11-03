@@ -32,7 +32,7 @@ public class LastMeasure extends HttpServlet {
         try {
             String queryStr = "SELECT m FROM Measure m WHERE m.sensor.id = :sensorId ORDER BY m.timestamp DESC";
             Query query = em.createQuery(queryStr).setMaxResults(1);
-            query.setParameter("sensorId",Integer.parseInt(sensorId.get()));
+            query.setParameter("sensorId",Long.parseLong(sensorId.get()));
 
             List<Measure> measures = query.getResultList();
             Measure lastMeasure = measures.get(0);
@@ -40,6 +40,7 @@ public class LastMeasure extends HttpServlet {
             req.setAttribute("lastMeasure",lastMeasure);
             req.setAttribute("unit", ApplicationData.UNITS.get(lastMeasure.getSensor().getType()));
         } catch(Exception e) {
+            System.out.println(e.getMessage());
             req.setAttribute("error",true);
         }
 

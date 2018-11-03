@@ -1,6 +1,6 @@
-DELETE FROM jee.sensors;
-ALTER TABLE jee.sensors AUTO_INCREMENT = 0;
-INSERT INTO jee.sensors (latitude, longitude, name, type)
+DELETE FROM bivjee.sensors;
+ALTER TABLE bivjee.sensors AUTO_INCREMENT = 0;
+INSERT INTO bivjee.sensors (latitude, longitude, name, type)
 VALUES
        (47.205541, -1.566923, 'Machine ile','temperature'),
        (47.217838, -1.537736, 'Gare SNCF', 'pressure'),
@@ -12,4 +12,4 @@ VALUES
        (47.223562, -1.581857, 'Parc procé','winddirection'),
        (47.232185, -1.548198, 'Erdre','temperature'),
        (47.217580, -1.495841, 'Ile Loire','pressure');
-SELECT * FROM jee.sensors
+SELECT * FROM bivjee.sensors

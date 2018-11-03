@@ -54,16 +54,17 @@
             $(document).ready(function () {
                 $('#rangestart').calendar({
                     onHidden: function (date, text, mode) {
-                        updateChart(sensorId)
+                        updateChart(sensorId,sensorType)
                     },
                 }).calendar("set date", moment().subtract(2, 'hours').toDate());
                 $('#rangeend').calendar({
                     onHidden: function (date, text, mode) {
-                        updateChart(sensorId)
+                        updateChart(sensorId,sensorType)
                     },
                 }).calendar("set date", moment().toDate());
 
                 var sensorId = '${sensorId}';
+                var sensorType = '${sensorType}';
 
                 var canvas1 = $("#myChart")[0];
 
@@ -102,22 +103,20 @@
                     }
                 });
 
-                updateChart(sensorId);
+                updateChart(sensorId,sensorType);
             });
 
-            function updateChart(sensorId) {
+            function updateChart(sensorId, sensorType) {
                 var beginDate = moment($('#rangestart').calendar("get date")).valueOf();
                 var endDate = moment($('#rangeend').calendar("get date")).valueOf();
 
                 var url = "/measures?sensorId=" + sensorId + "&beginDate=" + beginDate + "&endDate=" + endDate;
                 $.get(url).done(function (data) {
 
-                    var type = data[0].sensor.type;
-
                     var result = data.map(function (measure) {
                         return {
-                            x: measure.timestamp,
-                            y: measure.value
+                            x: measure[0],
+                            y: measure[1]
                         }
                     });
 
@@ -136,7 +135,7 @@
                     // });
 
                     removeDataset(ctx1);
-                    addDataset(ctx1, type + " fluctuation", result, "#007bff", "#007bff", false);
+                    addDataset(ctx1, sensorType + " fluctuation", result, "#007bff", "#007bff", false);
                     ctx1.update();
                 });
             }

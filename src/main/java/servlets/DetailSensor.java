@@ -18,6 +18,7 @@ public class DetailSensor extends HttpServlet {
 
         Optional<String> sensorId = Optional.ofNullable(req.getParameter("sensorId"));
         Optional<String> sensorName = Optional.ofNullable(req.getParameter("sensorName"));
+        Optional<String> sensorType = Optional.ofNullable(req.getParameter("sensorType"));
 
         if (!sensorId.isPresent() || ! sensorName.isPresent()) {
             UtilsJsp.forwardToErrorPage(
@@ -32,6 +33,7 @@ public class DetailSensor extends HttpServlet {
 
         req.setAttribute("sensorId",sensorId.get());
         req.setAttribute("sensorName",sensorName.get());
+        req.setAttribute("sensorType",sensorType.get());
 
         UtilsJsp.forwardToJsp("/jsp/detailSensor.jsp", req, resp);
     }

@@ -36,9 +36,9 @@ public class Measures extends HttpServlet {
 
         EntityManager em = ApplicationData.createEntityManager();
         try {
-            String queryStr = "SELECT m FROM Measure m WHERE m.sensor.id = :sensorId AND m.timestamp >= :begin AND m.timestamp <= :end";
+            String queryStr = "SELECT m.timestamp,m.value FROM Measure m WHERE m.sensor.id = :sensorId AND m.timestamp >= :begin AND m.timestamp <= :end";
             Query query = em.createQuery(queryStr);
-            query.setParameter("sensorId",Integer.parseInt(sensorId.get()));
+            query.setParameter("sensorId",Long.parseLong(sensorId.get()));
             query.setParameter("begin",beginTimestamp);
             query.setParameter("end",endTimestamp);
 
@@ -51,6 +51,7 @@ public class Measures extends HttpServlet {
             resp.getWriter().write(measuresJson);
 
         } catch(Exception e) {
+            System.out.println(e.getMessage());
             //TODO : return no data
             return;
         }
