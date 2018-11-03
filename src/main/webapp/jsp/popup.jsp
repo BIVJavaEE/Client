@@ -15,7 +15,7 @@
             <div class="label">${unit}</div>
         </div>
         <div>
-            <a href="${pageContext.request.contextPath}/detailSensor?sensorId=${lastMeasure.sensor.id}">See details</a>
+            <a href="${pageContext.request.contextPath}/detailSensor?sensorId=${lastMeasure.sensor.id}&sensorName=${lastMeasure.sensor.name}">See details</a>
         </div>
     </div>
 </c:if>
