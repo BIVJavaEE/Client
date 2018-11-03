@@ -51,7 +51,6 @@ public class AlertRequestMapper extends RequestMapper<Alert> {
         String formattedEndTime = getStringParameter("end-time").orElseThrow(() -> new RequestMapperException("Missing end time"));
         alert.setEndDate(convertDateTimeLocal(formattedEndTime));
 
-
         return alert;
     }
 

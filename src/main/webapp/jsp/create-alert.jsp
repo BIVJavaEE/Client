@@ -5,8 +5,7 @@
 
     <jsp:attribute name="head">
         <title>${title}</title>
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link rel="stylesheet" type="text/css" href="css/create-alert.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/create-alert.css">
     </jsp:attribute>
 
     <jsp:attribute name="header">
@@ -15,7 +14,7 @@
             var initialPriority = "${priority}";
             var sensorId = ${sensorId};
         </script>
-        <script src="../js/create-alert.js" text="text/babel"></script>
+        <script src="${pageContext.request.contextPath}/js/create-alert.js" text="text/babel"></script>
     </jsp:attribute>
 
     <jsp:attribute name="footer">
@@ -23,7 +22,19 @@
 
     <jsp:body>
 
-        <h1 id="title">${title}</h1>
+        <div id="title-header">
+            <div class="left">
+                <button class="mini ui button">
+                    Return to the alerts list
+                </button>
+            </div>
+            <div class="center">
+                <h1 id="title">${title}</h1>
+            </div>
+            <div class="right"></div>
+
+        </div>
+
         <form class="ui form" method="post">
 
             <div class="field">

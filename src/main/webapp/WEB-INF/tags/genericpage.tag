@@ -11,6 +11,7 @@
 
         <!-- Site Properties -->
         <link rel="stylesheet" type="text/css" href="../../css/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
 
         <script
                 src="https://code.jquery.com/jquery-3.3.1.min.js"
