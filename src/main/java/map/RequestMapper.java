@@ -1,14 +1,21 @@
-package servlets.base;
+package map;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Optional;
 
-public abstract class BaseServlet extends HttpServlet {
+public abstract class RequestMapper<T> {
 
-    protected Optional<Long> getLongParameter(HttpServletRequest req, String parameter) {
-        Optional<String> str = getStringParameter(req, parameter);
+    protected HttpServletRequest _req;
+
+    protected RequestMapper(HttpServletRequest req) {
+        _req = req;
+    }
+
+    public abstract T map() throws RequestMapperException;
+
+    protected Optional<Long> getLongParameter(String parameter) {
+        Optional<String> str = getStringParameter(parameter);
         if (!str.isPresent())
             return Optional.empty();
 
@@ -19,8 +26,8 @@ public abstract class BaseServlet extends HttpServlet {
         }
     }
 
-    protected Optional<String> getStringParameter(HttpServletRequest req, String parameter) {
-        return Optional.ofNullable(req.getParameter(parameter));
+    protected Optional<String> getStringParameter(String parameter) {
+        return Optional.ofNullable(_req.getParameter(parameter));
     }
 
     protected boolean areAllPresent(Optional... optionals) {

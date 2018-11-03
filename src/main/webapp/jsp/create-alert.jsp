@@ -11,6 +11,9 @@
 
     <jsp:attribute name="header">
         <%@ include file="../WEB-INF/jspf/header.jspf"%>
+        <script>
+            var initialPriority = "${priority}";
+        </script>
         <script src="../js/create-alert.js" text="text/babel"></script>
     </jsp:attribute>
 
@@ -22,29 +25,28 @@
         <h1 id="title"> Create an alert </h1>
         <form class="ui form" method="post">
 
-
             <div class="field">
                 <label>Name</label>
-                <input type="text" name="name">
+                <input type="text" name="name" value="${name}">
             </div>
 
             <div class="grouped fields">
                 <label>Priority</label>
                 <div class="field">
                     <div class="ui radio checkbox">
-                        <input type="radio" name="priority" value="high" checked="checked">
+                        <input type="radio" name="priority" value="high" id="priority-high">
                         <label>High</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
-                        <input type="radio" name="priority" value="medium">
+                        <input type="radio" name="priority" value="medium" id="priority-medium"/>
                         <label>Medium</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui radio checkbox">
-                        <input type="radio" name="priority" value="low">
+                        <input type="radio" name="priority" value="low" id="priority-low"/>
                         <label>Low</label>
                     </div>
                 </div>
@@ -52,7 +54,7 @@
 
             <div class="field">
                 <label>Threshold</label>
-                <input type="number" name="threshold">
+                <input type="number" name="threshold" value="${threshold}">
             </div>
 
             <div class="field">
@@ -60,7 +62,7 @@
                 <div class="ui calendar" id="begin-time">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
-                        <input type="date" name="begin-time">
+                        <input type="date" name="begin-time" value="${beginDate}">
                     </div>
                 </div>
             </div>
@@ -70,7 +72,7 @@
                 <div class="ui calendar" id="end-time">
                     <div class="ui input left icon">
                         <i class="calendar icon"></i>
-                        <input type="date" name="end-time">
+                        <input type="date" name="end-time" value="${endDate}">
                     </div>
                 </div>
             </div>
@@ -92,8 +94,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <button class="ui primary button">
                 Save
