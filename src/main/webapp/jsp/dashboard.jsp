@@ -18,7 +18,6 @@
         <script>
 
             var editor;
-            var currentId;
             $(document).ready(function () {
 
                 editor = new $.fn.dataTable.Editor({
@@ -35,7 +34,6 @@
                 // Delete a record
                 $('#lastAlerts').on('click', 'button.editor_remove', function (e) {
                     e.preventDefault();
-                    currentId = $(this).closest('tr')[0].id;
                     editor.remove($(this).closest('tr'), {
                         title: 'Delete record',
                         message: 'Are you sure you wish to remove this record?',
@@ -65,7 +63,7 @@
                             "data": "alert.sensor.name",
                             "render": function (data, type, row, meta) {
                                 if (type === 'display') {
-                                    data = '<a href="/detailSensor?sensorId=' + row.alert.sensor.id + '&sensorName=' + row.alert.sensor.name + '&sensorType=' + row.alert.sensor.type + '">' + data + '</a>';
+                                    data = '<a href="/detailSensor?sensorId=' + row.alert.sensor.id + '">' + data + '</a>';
                                 }
                                 return data;
                             }
