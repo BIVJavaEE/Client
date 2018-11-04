@@ -22,6 +22,8 @@ public class AlertNameIsValid extends BusinessCheck<AlertCreationContext> {
             throw new BusinessException("Empty name");
         }
 
+        if (context.isEditing()) return;
+
         boolean exists = true;
         try {
             _em

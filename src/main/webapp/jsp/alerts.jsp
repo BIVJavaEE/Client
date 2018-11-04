@@ -26,6 +26,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Priority</th>
+                    <th>Sensor</th>
                     <th>Begin date</th>
                     <th>End date</th>
                     <th>Actions</th>
@@ -34,10 +35,16 @@
             <tbody>
                 <c:forEach var="alert" items="${alertsList}">
                     <tr>
-                        <td data-label="Name"><c:out value='${alert.getName()}'/></td>
-                        <td data-label="Priority"><c:out value='${alert.getPriority()}'/></td>
-                        <td data-label="Priority"><c:out value='${alert.getBeginDate()}'/></td>
-                        <td data-label="Priority"><c:out value='${alert.getEndDate()}'/></td>
+                        <td><c:out value='${alert.getName()}'/></td>
+                        <td><c:out value='${alert.getPriority()}'/></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/detailSensor?sensorId=${alert.getSensor().getId()}">
+                                <c:out value='${alert.getSensor().getName()}'/>
+                            </a>
+                        </td>
+                        <td><c:out value='${alert.getBeginDate()}'/></td>
+                        <td><c:out value='${alert.getEndDate()}'/></td>
+
                         <td>
                             <a href="${pageContext.request.contextPath}/edit-alert/${alert.getId()}">
                                 <button class="ui button">

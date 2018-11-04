@@ -1,7 +1,13 @@
 package servlets;
 
+import entity.Sensor;
+import listeners.ApplicationData;
+import map.RequestMapper;
+import map.RequestMapperException;
 import utils.UtilsJsp;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +21,23 @@ public class DetailSensor extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestMapper<Long> mapper = new RequestMapper<Long>(req) {
+            @Override
+            public Long map() throws RequestMapperException {
+                return getLongParameter("sensorId").orElseThrow(() -> new RequestMapperException("Invalid sensor id"));
+            }
+        };
 
-        Optional<String> sensorId = Optional.ofNullable(req.getParameter("sensorId"));
-        Optional<String> sensorName = Optional.ofNullable(req.getParameter("sensorName"));
-        Optional<String> sensorType = Optional.ofNullable(req.getParameter("sensorType"));
-
-        if (!sensorId.isPresent() || ! sensorName.isPresent()) {
+        Long sensorId;
+        try {
+            sensorId = mapper.map();
+            EntityManager em = ApplicationData.createEntityManager();
+            Sensor sensor = em
+                    .createQuery("SELECT s FROM Sensor s where id = :id", Sensor.class)
+                    .setParameter("id", sensorId)
+                    .getSingleResult();
+            req.setAttribute("sensor", sensor);
+        } catch (RequestMapperException | NoResultException e) {
             UtilsJsp.forwardToErrorPage(
                     req,
                     resp,
@@ -30,10 +47,6 @@ public class DetailSensor extends HttpServlet {
                     "You can only access sensor details throught the sensors page");
             return;
         }
-
-        req.setAttribute("sensorId",sensorId.get());
-        req.setAttribute("sensorName",sensorName.get());
-        req.setAttribute("sensorType",sensorType.get());
 
         UtilsJsp.forwardToJsp("/jsp/detailSensor.jsp", req, resp);
     }

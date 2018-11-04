@@ -20,8 +20,8 @@
       <%--<p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>--%>
     </jsp:attribute>
     <jsp:body>
-        Detail sensor : <b>${sensorName}</b>
-
+        <h1 id="title">Detail of the sensor <i>${sensor.getName()}</i></h1>
+        <br/>
         <div class="ui form">
             <div class="two fields">
                 <div class="field">
@@ -63,8 +63,8 @@
                     },
                 }).calendar("set date", moment().toDate());
 
-                var sensorId = '${sensorId}';
-                var sensorType = '${sensorType}';
+                var sensorId = '${sensor.getId()}';
+                var sensorType = '${sensor.getType()}';
 
                 var canvas1 = $("#myChart")[0];
 

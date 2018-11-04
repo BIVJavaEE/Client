@@ -43,7 +43,13 @@ public class CreateAlert extends HttpServlet {
         try {
             businessChecks.run(context);
         } catch (BusinessException businessException) {
-            UtilsJsp.forwardToJsp("/jsp/alerts.jsp", req, resp);
+            UtilsJsp.forwardToErrorPage(
+                    req,
+                    resp,
+                    "Sensors",
+                    "Alert edition",
+                    "There were an error with your request",
+                    businessException.getMessage());
             return;
         }
 
@@ -54,7 +60,7 @@ public class CreateAlert extends HttpServlet {
         if (isEdition(req)) {
             Optional<Long> alertId = getAlertId(req);
             if (!alertId.isPresent()) {
-                UtilsJsp.forwardToJsp("/jsp/alerts.jsp", req, resp);
+                resp.sendRedirect("/alerts");
                 return;
             }
             newAlert.setId(alertId.get());
