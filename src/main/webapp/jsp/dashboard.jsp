@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:genericpage>
     <jsp:attribute name="head">
@@ -8,23 +9,87 @@
       <style type="text/css">
 
       </style>
+        <link rel="stylesheet" type="text/css" href="../css/editor.semanticui.min.css">
 
-        <%--<script src="https://code.jquery.com/jquery-3.3.1.js"></script>--%>
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
-        <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>--%>
-
+        <script src="../js/dataTables.editor.min.js"></script>
+        <script src="../js/editor.semanticui.min.js"></script>
         <script>
-            $(document).ready(function() {
-                $('#lastAlerts').DataTable( {
-                    scrollCollapse: true,
-                    paging:         false
-                } );
-            } );
+
+            var editor;
+            var currentId;
+            $(document).ready(function () {
+
+                editor = new $.fn.dataTable.Editor({
+                    ajax: {
+                        remove: {
+                            type: 'POST',
+                            url: '/alertsTriggered?id=_id_'
+                        }
+                    },
+                    "table": "#lastAlerts",
+                    idSrc: 'id'
+                });
+
+                // Delete a record
+                $('#lastAlerts').on('click', 'button.editor_remove', function (e) {
+                    e.preventDefault();
+                    currentId = $(this).closest('tr')[0].id;
+                    editor.remove($(this).closest('tr'), {
+                        title: 'Delete record',
+                        message: 'Are you sure you wish to remove this record?',
+                        buttons: 'Delete'
+                    });
+                });
+
+                var table = $('#lastAlerts').DataTable({
+                    paging: false,
+                    info: false,
+                    "processing": false,
+                    "ajax": {
+                        "url": "/alertsTriggered",
+                        dataSrc: ''
+                    },
+                    "columns": [
+                        {
+                            "data": "alert.name"
+                        },
+                        {
+                            "data": "triggerDate"
+                        },
+                        {
+                            "data": "alert.criticity"
+                        },
+                        {
+                            "data": "alert.sensor.name",
+                            "render": function (data, type, row, meta) {
+                                if (type === 'display') {
+                                    data = '<a href="/detailSensor?sensorId=' + row.alert.sensor.id + '&sensorName=' + row.alert.sensor.name + '&sensorType=' + row.alert.sensor.type + '">' + data + '</a>';
+                                }
+                                return data;
+                            }
+                        },
+                        {
+                            "data": "seen"
+                        },
+                        {
+                            data: null,
+                            className: "center",
+                            defaultContent: '<button class="editor_remove ui red button">Delete</button>'
+                        }
+                    ]
+                });
+
+
+                setInterval(function () {
+                    table.ajax.reload();
+                }, 10000);
+            });
         </script>
     </jsp:attribute>
     <jsp:attribute name="header">
-      <%@ include file="../WEB-INF/jspf/header.jspf"%>
+      <%@ include file="../WEB-INF/jspf/header.jspf" %>
     </jsp:attribute>
     <jsp:attribute name="footer">
       <%--<p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>--%>
@@ -32,8 +97,20 @@
     <jsp:body>
         <div class="ui raised very padded text container segment">
             <h3 class="ui header">General information</h3>
-            <p></p>
-            <p></p>
+            <div class="ui grid">
+                <c:forEach items="${measures}" var="item">
+                    <div class="four wide column">
+                        <div class="ui tiny statistic">
+                            <div class="value">
+                                    ${item[0]}
+                            </div>
+                            <div class="label">
+                                    ${item[1]}
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
         </div>
         <div class="ui raised very padded text container segment">
             <h3 class="ui header">Last alerts</h3>
@@ -41,24 +118,13 @@
                 <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>Trigger date</th>
+                    <th>Criticity</th>
+                    <th>Sensor</th>
+                    <th>Seen</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
-                <tbody>
-                <c:forEach items="${alertsTriggered}" var="item">
-                    ${item}
-                    <tr>
-                        <td>${item.name}</td>
-                        <td>${item.triggerDate}</td>
-                        <td>${item.alert.criticity}</td>
-                        <td>${item.seen}</td>
-                    </tr>
-                </c:forEach>
-                </tbody>
             </table>
         </div>
     </jsp:body>
