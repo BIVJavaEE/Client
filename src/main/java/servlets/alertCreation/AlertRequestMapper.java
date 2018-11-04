@@ -55,7 +55,7 @@ public class AlertRequestMapper extends RequestMapper<Alert> {
     }
 
     private Timestamp convertDateTimeLocal(String dateTimeLocal) {
-        DateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Date date = formatter.parse(dateTimeLocal);
             return new Timestamp(date.getTime());

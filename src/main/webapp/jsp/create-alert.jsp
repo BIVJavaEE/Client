@@ -24,9 +24,11 @@
 
         <div id="title-header">
             <div class="left">
-                <button class="mini ui button">
-                    Return to the alerts list
-                </button>
+                <a href="${pageContext.request.contextPath}/alerts">
+                    <button class="mini ui button">
+                        Return to the alerts list
+                    </button>
+                </a>
             </div>
             <div class="center">
                 <h1 id="title">${title}</h1>

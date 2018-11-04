@@ -3,11 +3,8 @@
 
 <t:genericpage>
     <jsp:attribute name="head">
-
         <title>Alerts</title>
-      <style type="text/css">
-
-      </style>
+        <script src="${pageContext.request.contextPath}/js/alerts.js" text="text/babel"></script>
     </jsp:attribute>
     <jsp:attribute name="header">
       <%@ include file="../WEB-INF/jspf/header.jspf"%>
@@ -38,7 +35,7 @@
                 <c:forEach var="alert" items="${alertsList}">
                     <tr>
                         <td data-label="Name"><c:out value='${alert.getName()}'/></td>
-                        <td data-label="Priority"><c:out value='${alert.getCriticity()}'/></td>
+                        <td data-label="Priority"><c:out value='${alert.getPriority()}'/></td>
                         <td data-label="Priority"><c:out value='${alert.getBeginDate()}'/></td>
                         <td data-label="Priority"><c:out value='${alert.getEndDate()}'/></td>
                         <td>
@@ -47,7 +44,7 @@
                                     Edit
                                 </button>
                             </a>
-                            <button class="ui red button">
+                            <button class="ui red button delete-alert" alert-id="${alert.getId()}" alert-name="${alert.getName()}">
                                 Delete
                             </button>
                         </td>
@@ -55,6 +52,27 @@
                 </c:forEach>
             </tbody>
         </table>
+
+        <div class="ui small modal" id="delete-confirmation-modal">
+            <i class="close icon"></i>
+            <div class="header">
+                Deleting an alert
+            </div>
+            <div class="content">
+                <div class="description">
+                    <p id="deletion-modal-content">Are you sure you want to delete <b>{{alertName}}</b>?
+                    This action is irrevocable</p>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui black deny button">
+                    No
+                </div>
+                <div class="ui positive right labeled icon button" id="confirm-delete-button">
+                    Delete
+                </div>
+            </div>
+        </div>
 
     </jsp:body>
 </t:genericpage>

@@ -65,7 +65,7 @@ public class CreateAlert extends HttpServlet {
         em.flush();
         em.getTransaction().commit();
 
-        UtilsJsp.forwardToJsp("/jsp/alerts.jsp", req, resp);
+        resp.sendRedirect("/alerts");
     }
 
     @Override
