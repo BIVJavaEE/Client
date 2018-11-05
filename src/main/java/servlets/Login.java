@@ -22,6 +22,9 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        EntityManager em = ApplicationData.createEntityManager();
+        LoginService loginService = new LoginService(em);
+        loginService.disconnect(req);
         UtilsJsp.forwardToJsp("/jsp/login.jsp", req, resp);
     }
 
@@ -54,6 +57,7 @@ public class Login extends HttpServlet {
         session.setAttribute("username", username.get());
         session.setAttribute("password", password.get());
 
-        resp.sendRedirect("/dashboard");
+        String redirectTo = Optional.ofNullable((String) session.getAttribute("redirectTo")).orElse("/dashboard");
+        resp.sendRedirect(redirectTo);
     }
 }

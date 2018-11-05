@@ -1,10 +1,14 @@
 package utils;
 
 import entity.User;
+import listeners.ApplicationData;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class LoginService {
@@ -28,6 +32,24 @@ public class LoginService {
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    public Optional<User> getCurrentlyLoggedInUser(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        Optional<String> username = Optional.ofNullable((String)session.getAttribute("username"));
+        Optional<String> password = Optional.ofNullable((String)session.getAttribute("password"));
+
+        if (!username.isPresent() || !password.isPresent()) {
+            return Optional.empty();
+        }
+
+        return login(username.get(), password.get());
+    }
+
+    public void disconnect(HttpServletRequest req) {
+        HttpSession session = req.getSession();
+        session.setAttribute("username", null);
+        session.setAttribute("password", null);
     }
 
 }

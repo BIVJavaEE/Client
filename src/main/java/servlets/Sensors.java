@@ -23,7 +23,7 @@ public class Sensors extends HttpServlet {
 
         EntityManager em = ApplicationData.createEntityManager();
         try {
-            List<Sensor> sensors = em.createQuery("SELECT s FROM Sensor s").getResultList();
+            List<Sensor> sensors = em.createQuery("SELECT s FROM Sensor s", Sensor.class).getResultList();
             String sensorsJson = new Gson().toJson(sensors);
             req.setAttribute("sensors",sensorsJson);
         } catch(NoResultException e) {
