@@ -45,11 +45,13 @@ public class Join extends HttpServlet {
             return;
         }
 
+        String loweredUserName = username.get().toLowerCase().trim();
+
         EntityManager em = ApplicationData.createEntityManager();
         boolean userExists = true;
         try {
             em.createQuery("SELECT u FROM User u WHERE u.name LIKE :providedName")
-                    .setParameter("providedName", username.get())
+                    .setParameter("providedName", loweredUserName)
                     .getSingleResult();
         } catch(NoResultException e) {
             userExists = false;
@@ -63,7 +65,7 @@ public class Join extends HttpServlet {
 
         String hashedPassword = DigestUtils.sha1Hex(password.get());
         User newUser = new User();
-        newUser.setName(username.get());
+        newUser.setName(loweredUserName);
         newUser.setPassword(hashedPassword);
 
         em.getTransaction().begin();

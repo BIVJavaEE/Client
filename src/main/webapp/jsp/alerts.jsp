@@ -27,6 +27,7 @@
                     <th>Name</th>
                     <th>Priority</th>
                     <th>Sensor</th>
+                    <th>Threshold</th>
                     <th>Begin date</th>
                     <th>End date</th>
                     <th>Actions</th>
@@ -42,6 +43,7 @@
                                 <c:out value='${alert.getSensor().getName()}'/>
                             </a>
                         </td>
+                        <td><c:out value='${alert.getThreshold()}'/></td>
                         <td><c:out value='${alert.getBeginDate()}'/></td>
                         <td><c:out value='${alert.getEndDate()}'/></td>
 
@@ -75,7 +77,7 @@
                 <div class="ui black deny button">
                     No
                 </div>
-                <div class="ui positive right labeled icon button" id="confirm-delete-button">
+                <div class="ui red button" id="confirm-delete-button">
                     Delete
                 </div>
             </div>
