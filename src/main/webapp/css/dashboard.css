@@ -1,0 +1,21 @@
+#title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#last-alerts {
+    width: 100%;
+}
+
+#last-alerts_filter > label > span {
+    margin-left: 10px;
+}
+
+.value-column {
+    text-align: center !important;
+}
+
+.grid-header {
+    text-align: center !important;
+    margin-bottom: 20px !important;
+}

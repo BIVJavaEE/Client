@@ -1,3 +1,9 @@
 #title {
     text-align: center;
 }
+
+.user-dropdown-link:hover,
+.user-dropdown-link {
+    color: black;
+    text-decoration: none;
+}

@@ -6,6 +6,7 @@ import listeners.ApplicationData;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +21,15 @@ public class AlertsTriggered extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         EntityManager em = ApplicationData.createEntityManager();
-        try {
-            String queryStr = "SELECT a FROM AlertTriggered a";
-            Query query = em.createQuery(queryStr);
 
-            List<AlertTriggered> alertsTriggered = query.getResultList();
+        try {
+            String queryStr = "SELECT at FROM AlertTriggered at " +
+                    "JOIN at.alert WHERE at IS NOT NULL ORDER BY at.id DESC";
+
+            List<AlertTriggered> alertsTriggered = em.
+                    createQuery(queryStr, AlertTriggered.class)
+                    .getResultList();
 
             String alertsTriggeredJson = new Gson().toJson(alertsTriggered);
 

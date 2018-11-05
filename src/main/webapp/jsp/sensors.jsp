@@ -92,6 +92,7 @@
       <%--<p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>--%>
     </jsp:attribute>
     <jsp:body>
+        <h1 id="title">Sensors</h1>
         <div id="mapid"></div>
     </jsp:body>
 </t:genericpage>

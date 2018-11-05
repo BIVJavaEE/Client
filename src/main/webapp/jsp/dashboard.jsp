@@ -10,6 +10,7 @@
 
       </style>
         <link rel="stylesheet" type="text/css" href="../css/editor.semanticui.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
@@ -27,12 +28,12 @@
                             url: '/alertsTriggered?id=_id_'
                         }
                     },
-                    "table": "#lastAlerts",
+                    "table": "#last-alerts",
                     idSrc: 'id'
                 });
 
                 // Delete a record
-                $('#lastAlerts').on('click', 'button.editor_remove', function (e) {
+                $('#last-alerts').on('click', 'button.editor_remove', function (e) {
                     e.preventDefault();
                     editor.remove($(this).closest('tr'), {
                         title: 'Delete record',
@@ -41,7 +42,7 @@
                     });
                 });
 
-                var table = $('#lastAlerts').DataTable({
+                var table = $('#last-alerts').DataTable({
                     paging: false,
                     info: false,
                     "processing": false,
@@ -93,11 +94,14 @@
       <%--<p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>--%>
     </jsp:attribute>
     <jsp:body>
-        <div class="ui raised very padded text container segment">
-            <h3 class="ui header">General information</h3>
-            <div class="ui grid">
+
+        <h1 id="title">Dashboard</h1>
+
+        <div class="ui raised very padded text segment">
+            <h3 class="ui header grid-header">General information</h3>
+            <div class="ui centered grid">
                 <c:forEach items="${measures}" var="item">
-                    <div class="four wide column">
+                    <div class="four wide column value-column">
                         <div class="ui tiny statistic">
                             <div class="value">
                                     ${item[0]}
@@ -110,9 +114,9 @@
                 </c:forEach>
             </div>
         </div>
-        <div class="ui raised very padded text container segment">
-            <h3 class="ui header">Last alerts</h3>
-            <table id="lastAlerts" class="ui celled table" style="width:100%">
+        <div class="ui raised very padded text segment">
+            <h3 class="ui header grid-header">Latest alerts</h3>
+            <table id="last-alerts" class="ui celled table">
                 <thead>
                 <tr>
                     <th>Name</th>
