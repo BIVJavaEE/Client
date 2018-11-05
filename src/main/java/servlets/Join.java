@@ -3,6 +3,7 @@ package servlets;
 import entity.User;
 import listeners.ApplicationData;
 import org.apache.commons.codec.digest.DigestUtils;
+import utils.LoginService;
 import utils.UtilsJsp;
 
 import javax.persistence.EntityManager;
@@ -37,7 +38,7 @@ public class Join extends HttpServlet {
         session.setAttribute("joinErrorMessage", JoinError.None);
 
         Optional<String> username = Optional.ofNullable(req.getParameter("username"));
-        Optional<String> password = Optional.ofNullable(req.getParameter("username"));
+        Optional<String> password = Optional.ofNullable(req.getParameter("password"));
 
         if (!username.isPresent() || !password.isPresent()) {
             // TODO: Error message
@@ -45,11 +46,13 @@ public class Join extends HttpServlet {
             return;
         }
 
+        String loweredUserName = username.get().toLowerCase().trim();
+
         EntityManager em = ApplicationData.createEntityManager();
         boolean userExists = true;
         try {
             em.createQuery("SELECT u FROM User u WHERE u.name LIKE :providedName")
-                    .setParameter("providedName", username.get())
+                    .setParameter("providedName", loweredUserName)
                     .getSingleResult();
         } catch(NoResultException e) {
             userExists = false;
@@ -63,7 +66,7 @@ public class Join extends HttpServlet {
 
         String hashedPassword = DigestUtils.sha1Hex(password.get());
         User newUser = new User();
-        newUser.setName(username.get());
+        newUser.setName(loweredUserName);
         newUser.setPassword(hashedPassword);
 
         em.getTransaction().begin();
@@ -75,7 +78,9 @@ public class Join extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        EntityManager em = ApplicationData.createEntityManager();
+        LoginService loginService = new LoginService(em);
+        loginService.disconnect(req);
         UtilsJsp.forwardToJsp("/jsp/join.jsp", req, resp);
     }
 

@@ -18,21 +18,18 @@
             </a>
         </c:forEach>
 
-        <%--<div class="ui simple dropdown item">--%>
-            <%--Machin <i class="dropdown icon"></i>--%>
-            <%--<div class="menu">--%>
-                <%--<a class="item" href="#">Balanse</a>--%>
-                <%--<a class="item" href="#">Inngående</a>--%>
-                <%--<a class="item" href="#">Utgående</a>--%>
-                <%--<div class="divider"></div>--%>
-                <%--<a class="item" href="#">Søk</a>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-
         <div class="right menu">
             <div class="borderless item">
-                <button id="userbutton" class="ui right labeled icon blue button"><i class="caret down icon"></i> Tormod
-                </button>
+                <div class="ui right labeled icon blue button dropdown" id="user-dropdown">
+                    ${user.getName()}
+                    <input type="hidden" name="gender">
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="item">
+                            <a href="${pageContext.request.contextPath}/login">Disconnect</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

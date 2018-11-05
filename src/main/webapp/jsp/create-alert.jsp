@@ -93,7 +93,7 @@
 
             <div class="field">
                 <label>Sensor</label>
-                <div class="ui selection dropdown">
+                <div class="ui selection dropdown" id="sensors-dropdown">
                     <input type="hidden" name="sensor">
                     <i class="dropdown icon"></i>
                     <div class="default text">Sensor</div>

@@ -20,6 +20,8 @@
         <script src="../../js/semantic.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
 
+        <script src="../../js/main.js" text="text/babel"></script>
+
         <style type="text/css">
             body {
                 background-color: #f9f9f9;

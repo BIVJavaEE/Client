@@ -1,4 +1,4 @@
-const onDocumentReady = () => {
+$(document).ready(() => {
 
     const $modal = $('#delete-confirmation-modal');
 
@@ -27,5 +27,4 @@ const onDocumentReady = () => {
         openDeletionModal(alertId, alertName);
     });
 
-};
-$(document).ready(onDocumentReady);
+});
