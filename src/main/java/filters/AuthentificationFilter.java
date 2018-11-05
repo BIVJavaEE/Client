@@ -19,6 +19,7 @@ import java.util.Optional;
                 "/edit_alert/*",
                 "/detailSensor/*",
                 "/alerts/*",
+                "/lastMeasure/*",
                 "/sensors/*"
         })
 public class AuthentificationFilter implements Filter {
