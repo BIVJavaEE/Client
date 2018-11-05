@@ -77,7 +77,7 @@
                 <div class="ui black deny button">
                     No
                 </div>
-                <div class="ui red button" id="confirm-delete-button">
+                <div class="ui red ok button" id="confirm-delete-button">
                     Delete
                 </div>
             </div>
