@@ -24,8 +24,12 @@ public class AlertsTriggered extends HttpServlet {
         EntityManager em = ApplicationData.createEntityManager();
 
         try {
-            String queryStr = "SELECT at FROM AlertTriggered at " +
-                    "JOIN at.alert WHERE at IS NOT NULL ORDER BY at.id DESC";
+            String queryStr =
+                    "SELECT at FROM AlertTriggered at " +
+                    "INNER JOIN at.alert " +
+                    "INNER JOIN at.measure " +
+                    "WHERE at IS NOT NULL " +
+                    "ORDER BY at.id DESC";
 
             List<AlertTriggered> alertsTriggered = em.
                     createQuery(queryStr, AlertTriggered.class)

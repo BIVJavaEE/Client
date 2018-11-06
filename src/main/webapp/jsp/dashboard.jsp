@@ -55,7 +55,7 @@
                             "data": "alert.name"
                         },
                         {
-                            "data": "triggerDate"
+                            "data": "measure.timestamp"
                         },
                         {
                             "data": "alert.criticity"
