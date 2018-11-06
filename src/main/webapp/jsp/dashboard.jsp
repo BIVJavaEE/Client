@@ -104,10 +104,10 @@
                     <div class="four wide column value-column">
                         <div class="ui tiny statistic">
                             <div class="value">
-                                    ${item[0]}
+                                    ${item.getDisplayedAverage()}
                             </div>
                             <div class="label">
-                                    ${item[1]}
+                                    ${item.getUnit()}
                             </div>
                         </div>
                     </div>
