@@ -15,7 +15,7 @@
 
         <style>
             #mapid {
-                min-height: 90%;
+                height: 90%;
             }
 
             .leaflet-tooltip-top:before, .leaflet-tooltip-bottom:before, .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
