@@ -91,14 +91,17 @@
       <%@ include file="../WEB-INF/jspf/header.jspf" %>
     </jsp:attribute>
     <jsp:attribute name="footer">
-      <%--<p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>--%>
     </jsp:attribute>
     <jsp:body>
 
         <h1 id="title">Dashboard</h1>
 
         <div class="ui raised very padded text segment">
-            <h3 class="ui header grid-header">General information</h3>
+            <div class="ui header grid-header">Average from the last 2 hours</div>
+            <div id="general-info">
+                <b>Latest measure received:</b> ${mostRecentMeasureData} <br/>
+                <b>Measures count:</b> ${measuresCount}
+            </div>
             <div class="ui centered grid">
                 <c:forEach items="${measures}" var="item">
                     <div class="four wide column value-column">
