@@ -58,6 +58,9 @@
                             "data": "measure.timestamp"
                         },
                         {
+                            "data": "measure.value"
+                        },
+                        {
                             "data": "alert.criticity"
                         },
                         {
@@ -124,6 +127,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Trigger date</th>
+                    <th>Trigger value</th>
                     <th>Criticity</th>
                     <th>Sensor</th>
                     <th>Seen</th>

@@ -2,11 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="ui top fixed menu">
     <div class="ui container">
-        <a href="#" class="header item">
-            <i class="bar chart icon"></i>
-            Admin Panel
-
-        </a>
         <c:set var="currentPage" value="${fn:substring(pageContext.request.servletPath, 1, -1)}" />
 
         <c:forEach items="${pageContext.servletContext.getAttribute('menus')}" var="item">
