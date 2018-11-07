@@ -15,6 +15,9 @@
             <jsp:attribute name="buttontext">
                 Sign in
             </jsp:attribute>
+            <jsp:attribute name="forgot">
+                <a style="float: right; position: absolute; right: 5%;" href="#">Forgot password ?</a>
+            </jsp:attribute>
             <jsp:attribute name="bottominfo">
                 <div class="ui message">
                     New to this app? <a href="${pageContext.request.contextPath}/join">Create an account.</a>

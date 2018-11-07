@@ -4,6 +4,7 @@
 <%@attribute name="buttontext" fragment="true" %>
 <%@attribute name="bottominfo" fragment="true" %>
 <%@attribute name="method" fragment="true" %>
+<%@attribute name="forgot" fragment="true" %>
 
 <div class="ui middle aligned center aligned grid">
     <div class="column">
@@ -17,6 +18,7 @@
                 <label>Username</label>
                 <input type="text" name="username">
             </div>
+            <jsp:invoke fragment="forgot"/>
             <div class="field">
                 <label>Password</label>
                 <input type="password" name="password">
