@@ -111,20 +111,21 @@
                 var endDate = moment($('#rangeend').calendar("get date")).valueOf();
 
                 var url = "/measures?sensorId=" + sensorId + "&beginDate=" + beginDate + "&endDate=" + endDate;
-                $.get(url).done(function (data) {
+                var getMethod;
+                getMethod = $.get(url).done(function (data) {
+
+                    ctx1.options.scales.xAxes[0].time.stepSize = parseInt(getMethod.getResponseHeader("Time-Step"), 10);
 
                     var result = data.map(function (measure) {
                         return {
-                            x: measure[0],
-                            y: measure[1]
+                            x: measure.timestamp,
+                            y: measure.value
                         }
                     });
 
                     result = result.filter(function (element, index, array) {
                         return (index % 1 === 0);
                     });
-
-                    console.log(result);
 
                     // parse labels and data
                     // var labels = result.map(function (e) {

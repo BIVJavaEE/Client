@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet("/measures")
 public class Measures extends HttpServlet {
@@ -35,25 +35,35 @@ public class Measures extends HttpServlet {
         Timestamp endTimestamp = new Timestamp(Long.parseLong(endDate.get()));
 
         EntityManager em = ApplicationData.createEntityManager();
-        try {
-            String queryStr = "SELECT m.timestamp,m.value FROM Measure m WHERE m.sensor.id = :sensorId AND m.timestamp >= :begin AND m.timestamp <= :end";
-            Query query = em.createQuery(queryStr);
-            query.setParameter("sensorId",Long.parseLong(sensorId.get()));
-            query.setParameter("begin",beginTimestamp);
-            query.setParameter("end",endTimestamp);
 
-            List<Measure> measures = query.getResultList();
+        String queryStr = "SELECT m " +
+                "FROM Measure m " +
+                "WHERE m.sensor.id = :sensorId " +
+                "AND m.timestamp BETWEEN :timestampStart AND :timestampEnd";
 
-            String measuresJson = new Gson().toJson(measures);
+        List<Measure> measures = em.createQuery(queryStr, Measure.class)
+                .setParameter("sensorId",Long.parseLong(sensorId.get()))
+                .setParameter("timestampStart",beginTimestamp)
+                .setParameter("timestampEnd",endTimestamp)
+                .getResultList();
 
-            resp.setContentType("application/json");
-            resp.setCharacterEncoding("UTF-8");
-            resp.getWriter().write(measuresJson);
+        List<Long> timestamps = measures
+                .stream()
+                .mapToLong(m -> m.getTimestamp().getTime())
+                .boxed()
+                .collect(Collectors.toList());
 
-        } catch(Exception e) {
-            System.out.println(e.getMessage());
-            //TODO : return no data
-            return;
-        }
+        long min = Collections.min(timestamps);
+        long max = Collections.max(timestamps);
+        long distance = max - min;
+        long step = distance / 1000 / 20;
+        resp.setHeader("Time-Step", String.valueOf(step));
+
+        String measuresJson = new Gson().toJson(measures);
+
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.getWriter().write(measuresJson);
+
     }
 }

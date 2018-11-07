@@ -30,6 +30,7 @@ public class DetailSensor extends HttpServlet {
 
         Long sensorId;
         try {
+
             sensorId = mapper.map();
             EntityManager em = ApplicationData.createEntityManager();
             Sensor sensor = em
@@ -37,6 +38,7 @@ public class DetailSensor extends HttpServlet {
                     .setParameter("id", sensorId)
                     .getSingleResult();
             req.setAttribute("sensor", sensor);
+
         } catch (RequestMapperException | NoResultException e) {
             UtilsJsp.forwardToErrorPage(
                     req,

@@ -13,6 +13,8 @@
         <script>
             var initialPriority = "${priority}";
             var sensorId = ${sensorId};
+            var sensors = ${sensorsJson}
+            var units = ${unitsJson}
         </script>
         <script src="${pageContext.request.contextPath}/js/create-alert.js" text="text/babel"></script>
     </jsp:attribute>
@@ -68,7 +70,10 @@
 
             <div class="field">
                 <label>Threshold</label>
-                <input type="number" name="threshold" value="${threshold}">
+                <div class="ui left labeled input">
+                    <div class="ui basic label" id="unit-label"></div>
+                    <input type="number" name="threshold" value="${threshold}">
+                </div>
             </div>
 
             <div class="field">
@@ -98,13 +103,11 @@
                     <i class="dropdown icon"></i>
                     <div class="default text">Sensor</div>
                     <div class="menu">
-                        <c:forEach var="entry" items="${sensorsList}">
-                            <div class="item" data-value="<c:out value='${entry.getId()}'/>">
-                                <c:out value='${entry.getName()}'/>
+                        <c:forEach var="sensor" items="${sensorsList}">
+                            <div class="item" data-value="<c:out value='${sensor.getId()}'/>">
+                                <b><c:out value='${sensor.getName()}'/></b> (<c:out value='${sensor.getType()}'/>)
                             </div>
                         </c:forEach>
-                      <div class="item">Test</div>
-                      <div class="item">Test2</div>
                     </div>
                 </div>
             </div>

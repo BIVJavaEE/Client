@@ -3,6 +3,7 @@ package servlets.alertCreation;
 import business.BusinessCheck;
 import business.BusinessCheckOrchestrator;
 import business.BusinessException;
+import com.google.gson.Gson;
 import entity.Alert;
 import entity.Sensor;
 import listeners.ApplicationData;
@@ -83,6 +84,14 @@ public class CreateAlert extends HttpServlet {
                 .getResultList();
         req.setAttribute("sensorsList", sensors);
 
+        Gson gson = new Gson();
+
+        String sensorsJson = gson.toJson(sensors);
+        req.setAttribute("sensorsJson", sensorsJson);
+
+        String unitsJson = gson.toJson(ApplicationData.UNITS);
+        req.setAttribute("unitsJson", unitsJson);
+
         Date today = new Date();
         Date tomorrow = new Date(today.getTime() + (1000 * 60 * 60 * 24));
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -90,8 +99,8 @@ public class CreateAlert extends HttpServlet {
         String priority = "high";
         String beginDate = dateFormat.format(today);
         String endDate = dateFormat.format(tomorrow);
-        Long threshold = 0L;
-        Long sensorId = -1L;
+        long threshold = 0L;
+        long sensorId = -1L;
 
         boolean isEdition = isEdition(req);
         if (isEdition) {

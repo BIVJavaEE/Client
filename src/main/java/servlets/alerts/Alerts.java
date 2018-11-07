@@ -28,9 +28,8 @@ public class Alerts extends HttpServlet {
         EntityManager em = ApplicationData.createEntityManager();
 
         List<DisplayedAlert> alerts = em
-                .createQuery("SELECT a FROM Alert a", Alert.class)
-                .getResultList()
-                .stream()
+                .createQuery("SELECT a FROM Alert a INNER JOIN a.sensor s", Alert.class)
+                .getResultStream()
                 .map(DisplayedAlert::new)
                 .collect(Collectors.toList());
 

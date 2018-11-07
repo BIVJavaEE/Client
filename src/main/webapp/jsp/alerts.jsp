@@ -43,7 +43,7 @@
                                 <c:out value='${alert.getSensor().getName()}'/>
                             </a>
                         </td>
-                        <td><c:out value='${alert.getThreshold()}'/></td>
+                        <td><c:out value='${alert.getThreshold()}'/> </td>
                         <td><c:out value='${alert.getBeginDate()}'/></td>
                         <td><c:out value='${alert.getEndDate()}'/></td>
 
