@@ -17,7 +17,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.generate_statistics" value="false" />
 			<property name="hibernate.use_sql_comments" value="false" />
-			<property name="connection.pool_size" value="10000"/>
+			<property name="hibernate.connection.pool_size" value="10000"/>
 			<!--<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />-->
 		</properties>
 	</persistence-unit>

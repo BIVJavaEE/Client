@@ -15,7 +15,7 @@ import java.util.Set;
 public class ApplicationData implements ServletContextListener {
 
     private static EntityManagerFactory emf;
-    private static final String[] MENUS = {"Dashboard", "Sensors", "Alerts"};
+    private static final String[] MENUS = {"Dashboard", "Sensors", "Alerts edition"};
 
     public static final Map<String, String> UNITS;
     static
