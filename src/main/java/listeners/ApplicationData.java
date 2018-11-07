@@ -22,7 +22,7 @@ public class ApplicationData implements ServletContextListener {
     {
         UNITS = new HashMap<>();
         UNITS.put("temperature", "°C");
-        UNITS.put("pressure", "Pa");
+        UNITS.put("pressure", "hPa");
         UNITS.put("windspeed", "km/h");
         UNITS.put("winddirection", "°");
     }
