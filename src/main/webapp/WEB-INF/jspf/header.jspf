@@ -4,10 +4,8 @@
     <div class="ui container">
         <c:set var="currentPage" value="${fn:substring(pageContext.request.servletPath, 1, -1)}" />
 
-        <c:forEach items="${pageContext.servletContext.getAttribute('menus')}" var="item">
-            <c:set var="itemLowerCase" value="${item.toLowerCase()}" />
-            <c:set var="path" value="jsp/${itemLowerCase}.jsp" />
-            <a href="${pageContext.request.contextPath}/${itemLowerCase}"
+        <c:forEach items="${menusOrder}" var="item">
+            <a href="${pageContext.request.contextPath}/${menus.get(item)}"
                class="${currentPage == path ? 'active' : ''} item">
                     ${item}
             </a>
