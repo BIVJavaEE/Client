@@ -33,6 +33,8 @@ public class Login extends HttpServlet {
         Optional<String> username = Optional.ofNullable(req.getParameter("username"));
         Optional<String> password = Optional.ofNullable(req.getParameter("password"));
 
+        req.setAttribute("loginError", null);
+
         if (!username.isPresent() || !password.isPresent()) {
             UtilsJsp.forwardToErrorPage(
                     req,
@@ -49,6 +51,7 @@ public class Login extends HttpServlet {
         Optional<User> loggedInUser = loginService.login(username.get(), password.get());
 
         if (!loggedInUser.isPresent()) {
+            req.setAttribute("loginError", "Error: wrong username or password");
             UtilsJsp.forwardToJsp("/jsp/login.jsp", req, resp);
             return;
         }
